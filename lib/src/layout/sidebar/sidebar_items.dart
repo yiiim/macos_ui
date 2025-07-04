@@ -99,8 +99,7 @@ class SidebarItems extends StatelessWidget {
   final MouseCursor? cursor;
 
   /// The user’s selected system accent color.
-  AccentColor _getAccentColor(BuildContext context) =>
-      MacosTheme.of(context).accentColor ?? AccentColor.blue;
+  AccentColor _getAccentColor(BuildContext context) => MacosTheme.of(context).accentColor ?? AccentColor.blue;
 
   /// Returns the sidebar item’s selected color.
   Color _getColor(BuildContext context) {
@@ -147,8 +146,7 @@ class SidebarItems extends StatelessWidget {
                 child: ListView(
                   controller: scrollController,
                   physics: const ClampingScrollPhysics(),
-                  padding:
-                      EdgeInsets.all(10.0 - theme.visualDensity.horizontal),
+                  padding: EdgeInsets.all(10.0 - theme.visualDensity.horizontal),
                   children: List.generate(items.length, (index) {
                     final item = items[index];
                     if (item.section == true && item.disclosureItems != null) {
@@ -211,8 +209,7 @@ class _SidebarItemsConfiguration extends InheritedWidget {
   final SidebarItemSize itemSize;
 
   static _SidebarItemsConfiguration of(BuildContext context) {
-    return context
-        .dependOnInheritedWidgetOfExactType<_SidebarItemsConfiguration>()!;
+    return context.dependOnInheritedWidgetOfExactType<_SidebarItemsConfiguration>()!;
   }
 
   @override
@@ -296,17 +293,14 @@ class _SidebarHeaderItem extends StatelessWidget {
         ));
   }
 
-  DefaultTextStyle _buildLabelWithDefaultTextStyle(
-      TextStyle labelStyle, BuildContext context) {
+  DefaultTextStyle _buildLabelWithDefaultTextStyle(TextStyle labelStyle, BuildContext context) {
     final isDarkModeEnabled = MacosTheme.of(context).brightness.isDark;
 
     return DefaultTextStyle(
       style: labelStyle.copyWith(
         fontWeight: FontWeight.bold,
         fontSize: (labelStyle.fontSize ?? 14.0) * 0.85,
-        color: isDarkModeEnabled
-            ? MacosColors.white.withValues(alpha: 0.3)
-            : MacosColors.black.withValues(alpha: 0.3),
+        color: isDarkModeEnabled ? MacosColors.white.withValues(alpha: 0.3) : MacosColors.black.withValues(alpha: 0.3),
         overflow: TextOverflow.ellipsis,
       ),
       child: item.label,
@@ -358,13 +352,11 @@ class _SidebarItem extends StatelessWidget {
     final theme = MacosTheme.of(context);
 
     final selectedColor = MacosDynamicColor.resolve(
-      item.selectedColor ??
-          _SidebarItemsConfiguration.of(context).selectedColor,
+      item.selectedColor ?? _SidebarItemsConfiguration.of(context).selectedColor,
       context,
     );
     final unselectedColor = MacosDynamicColor.resolve(
-      item.unselectedColor ??
-          _SidebarItemsConfiguration.of(context).unselectedColor,
+      item.unselectedColor ?? _SidebarItemsConfiguration.of(context).unselectedColor,
       context,
     );
 
@@ -416,8 +408,7 @@ class _SidebarItem extends StatelessWidget {
                     padding: EdgeInsets.only(right: spacing),
                     child: MacosIconTheme.merge(
                       data: MacosIconThemeData(
-                        color:
-                            selected ? MacosColors.white : theme.primaryColor,
+                        color: selected ? MacosColors.white : theme.primaryColor,
                         size: itemSize.iconSize,
                       ),
                       child: item.leading!,
@@ -446,8 +437,7 @@ class _SidebarItem extends StatelessWidget {
     );
   }
 
-  DefaultTextStyle _buildLabelWithDefaultTextStyle(
-      TextStyle labelStyle, Color selectedColor, BuildContext context) {
+  DefaultTextStyle _buildLabelWithDefaultTextStyle(TextStyle labelStyle, Color selectedColor, BuildContext context) {
     if (item.section ?? true) {
       final isDarkModeEnabled = MacosTheme.of(context).brightness.isDark;
 
@@ -455,9 +445,8 @@ class _SidebarItem extends StatelessWidget {
         style: labelStyle.copyWith(
           fontWeight: FontWeight.bold,
           fontSize: (labelStyle.fontSize ?? 14.0) * 0.85,
-          color: isDarkModeEnabled
-              ? MacosColors.white.withValues(alpha: 0.3)
-              : MacosColors.black.withValues(alpha: 0.3),
+          color:
+              isDarkModeEnabled ? MacosColors.white.withValues(alpha: 0.3) : MacosColors.black.withValues(alpha: 0.3),
           overflow: TextOverflow.ellipsis,
         ),
         child: item.label,
@@ -493,16 +482,12 @@ class _DisclosureSidebarHeaderItem extends StatefulWidget {
   final ValueChanged<SidebarItem>? onChanged;
 
   @override
-  __DisclosureSidebarHeaderState createState() =>
-      __DisclosureSidebarHeaderState();
+  __DisclosureSidebarHeaderState createState() => __DisclosureSidebarHeaderState();
 }
 
-class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem>
-    with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween =
-      Tween<double>(begin: 0, end: 0.25);
+class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem> with SingleTickerProviderStateMixin {
+  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
+  static final Animatable<double> _halfTween = Tween<double>(begin: 0, end: 0.25);
 
   late AnimationController _controller;
   late Animation<double> _iconTurns;
@@ -652,7 +637,7 @@ class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem>
           children: widget.item.disclosureItems!.map((item) {
             return Padding(
               padding: EdgeInsets.only(
-                left: 24.0 + theme.visualDensity.horizontal,
+                left: 8 + theme.visualDensity.horizontal,
               ),
               child: SizedBox(
                 width: double.infinity,
@@ -699,12 +684,9 @@ class _DisclosureSidebarItem extends StatefulWidget {
   __DisclosureSidebarItemState createState() => __DisclosureSidebarItemState();
 }
 
-class __DisclosureSidebarItemState extends State<_DisclosureSidebarItem>
-    with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween =
-      Tween<double>(begin: 0.0, end: 0.25);
+class __DisclosureSidebarItemState extends State<_DisclosureSidebarItem> with SingleTickerProviderStateMixin {
+  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
+  static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.25);
 
   late AnimationController _controller;
   late Animation<double> _iconTurns;
@@ -778,9 +760,7 @@ class __DisclosureSidebarItemState extends State<_DisclosureSidebarItem>
                     child: Icon(
                       CupertinoIcons.chevron_right,
                       size: 12.0,
-                      color: theme.brightness == Brightness.light
-                          ? MacosColors.black
-                          : MacosColors.white,
+                      color: theme.brightness == Brightness.light ? MacosColors.black : MacosColors.white,
                     ),
                   ),
                   if (hasLeading)

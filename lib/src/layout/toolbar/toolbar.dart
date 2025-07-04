@@ -40,6 +40,7 @@ class ToolBar extends StatefulWidget with Diagnosticable {
     this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4.0),
     this.decoration,
     this.leading,
+    this.trailing,
     this.automaticallyImplyLeading = true,
     this.actions,
     this.centerTitle = false,
@@ -91,6 +92,8 @@ class ToolBar extends StatefulWidget with Diagnosticable {
   ///
   /// Typically the [leading] widget is a [MacosIcon] or a [MacosIconButton].
   final Widget? leading;
+
+  final Widget? trailing;
 
   /// Controls whether the toolbar should try to imply if the [leading] widget
   /// is null.
@@ -159,8 +162,7 @@ class ToolBar extends StatefulWidget with Diagnosticable {
     properties.add(DiagnosticsProperty<Alignment>('alignment', alignment));
     properties.add(DiagnosticsProperty<Widget>('title', title));
     properties.add(DoubleProperty('titleWidth', titleWidth));
-    properties
-        .add(DiagnosticsProperty<BoxDecoration>('decoration', decoration));
+    properties.add(DiagnosticsProperty<BoxDecoration>('decoration', decoration));
     properties.add(DiagnosticsProperty<EdgeInsets>('padding', padding));
     properties.add(DiagnosticsProperty<Widget>('leading', leading));
     properties.add(FlagProperty(
@@ -187,8 +189,7 @@ class _ToolBarState extends State<ToolBar> {
   @override
   void didUpdateWidget(ToolBar oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.actions != null &&
-        widget.actions!.length != oldWidget.actions!.length) {
+    if (widget.actions != null && widget.actions!.length != oldWidget.actions!.length) {
       overflowedActionsCount = 0;
     }
   }
@@ -240,9 +241,7 @@ class _ToolBarState extends State<ToolBar> {
     bool doAllItemsShowLabel = true;
     if (widget.actions != null && widget.actions!.isNotEmpty) {
       inToolbarActions = widget.actions ?? [];
-      overflowedActions = inToolbarActions
-          .sublist(inToolbarActions.length - overflowedActionsCount)
-          .toList();
+      overflowedActions = inToolbarActions.sublist(inToolbarActions.length - overflowedActionsCount).toList();
       // If all toolbar actions have labels shown below their icons,
       // reduce the overflow button's size as well.
       for (ToolbarItem item in widget.actions!) {
@@ -283,27 +282,33 @@ class _ToolBarState extends State<ToolBar> {
           child: NavigationToolbar(
             middle: title,
             centerMiddle: widget.centerTitle,
-            trailing: OverflowHandler(
-              overflowBreakpoint: overflowBreakpoint,
-              overflowWidget: ToolbarOverflowButton(
-                isDense: doAllItemsShowLabel,
-                overflowContentBuilder: (context) => ToolbarOverflowMenu(
-                  children: overflowedActions
-                      .map((action) => action.build(
-                            context,
-                            ToolbarItemDisplayMode.overflowed,
-                          ))
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                OverflowHandler(
+                  overflowBreakpoint: overflowBreakpoint,
+                  overflowWidget: ToolbarOverflowButton(
+                    isDense: doAllItemsShowLabel,
+                    overflowContentBuilder: (context) => ToolbarOverflowMenu(
+                      children: overflowedActions
+                          .map((action) => action.build(
+                                context,
+                                ToolbarItemDisplayMode.overflowed,
+                              ))
+                          .toList(),
+                    ),
+                  ),
+                  children: inToolbarActions
+                      .map(
+                        (e) => e.build(context, ToolbarItemDisplayMode.inToolbar),
+                      )
                       .toList(),
+                  overflowChangedCallback: (hiddenItems) {
+                    setState(() => overflowedActionsCount = hiddenItems.length);
+                  },
                 ),
-              ),
-              children: inToolbarActions
-                  .map(
-                    (e) => e.build(context, ToolbarItemDisplayMode.inToolbar),
-                  )
-                  .toList(),
-              overflowChangedCallback: (hiddenItems) {
-                setState(() => overflowedActionsCount = hiddenItems.length);
-              },
+                if (widget.trailing != null) widget.trailing!,
+              ],
             ),
             middleSpacing: 8,
             leading: SafeArea(
