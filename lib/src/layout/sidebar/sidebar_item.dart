@@ -21,6 +21,8 @@ class SidebarItem with Diagnosticable {
     this.disclosureItems,
     this.expandDisclosureItems = false,
     this.trailing,
+    this.hovering,
+    this.expandEnabled = true,
     this.section = false,
   });
 
@@ -71,6 +73,9 @@ class SidebarItem with Diagnosticable {
   /// screenshots from the Apple Notes app:
   /// <img src="https://imgur.com/REpW9f9.png" height="88" width="219" />
   final Widget? trailing;
+
+  final Widget? hovering;
+  final bool expandEnabled;
 
   /// If true, this item is a section header.
   final bool? section;

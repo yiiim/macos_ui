@@ -445,8 +445,7 @@ class _SidebarItem extends StatelessWidget {
         style: labelStyle.copyWith(
           fontWeight: FontWeight.bold,
           fontSize: (labelStyle.fontSize ?? 14.0) * 0.85,
-          color:
-              isDarkModeEnabled ? MacosColors.white.withValues(alpha: 0.3) : MacosColors.black.withValues(alpha: 0.3),
+          color: isDarkModeEnabled ? MacosColors.white.withValues(alpha: 0.3) : MacosColors.black.withValues(alpha: 0.3),
           overflow: TextOverflow.ellipsis,
         ),
         child: item.label,
@@ -584,20 +583,19 @@ class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem>
                     children: [
                       if (widget.item.trailing != null) widget.item.trailing!,
                       if (_isHovering)
-                        RotationTransition(
-                          turns: _iconTurns,
-                          child: Icon(
-                            CupertinoIcons.chevron_right,
-                            size: 14.0,
-                            color: theme.brightness == Brightness.light
-                                ? MacosColors.black.withValues(alpha: 0.3)
-                                : MacosColors.white.withValues(alpha: 0.3),
-                          ),
-                        ),
+                        widget.item.hovering ??
+                            RotationTransition(
+                              turns: _iconTurns,
+                              child: Icon(
+                                CupertinoIcons.chevron_right,
+                                size: 14.0,
+                                color: theme.brightness == Brightness.light ? MacosColors.black.withValues(alpha: 0.3) : MacosColors.white.withValues(alpha: 0.3),
+                              ),
+                            ),
                     ],
                   ),
                 ),
-                onClick: _handleTap,
+                onClick: widget.item.expandEnabled ? _handleTap : null,
                 selected: false,
               ),
             )),
