@@ -40,6 +40,7 @@ class ToolBar extends StatefulWidget with Diagnosticable {
     this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4.0),
     this.decoration,
     this.leading,
+    this.trailing,
     this.automaticallyImplyLeading = true,
     this.actions,
     this.centerTitle = false,
@@ -91,6 +92,8 @@ class ToolBar extends StatefulWidget with Diagnosticable {
   ///
   /// Typically the [leading] widget is a [MacosIcon] or a [MacosIconButton].
   final Widget? leading;
+
+  final Widget? trailing;
 
   /// Controls whether the toolbar should try to imply if the [leading] widget
   /// is null.
@@ -269,43 +272,47 @@ class _ToolBarState extends State<ToolBar> {
         child: Container(
           alignment: widget.alignment,
           padding: widget.padding,
-          decoration:
-              BoxDecoration(
-                border: Border(bottom: BorderSide(color: dividerColor)),
-              ).copyWith(
-                color: widget.decoration?.color,
-                image: widget.decoration?.image,
-                border: widget.decoration?.border,
-                borderRadius: widget.decoration?.borderRadius,
-                boxShadow: widget.decoration?.boxShadow,
-                gradient: widget.decoration?.gradient,
-              ),
+          decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: dividerColor)),
+          ).copyWith(
+            color: widget.decoration?.color,
+            image: widget.decoration?.image,
+            border: widget.decoration?.border,
+            borderRadius: widget.decoration?.borderRadius,
+            boxShadow: widget.decoration?.boxShadow,
+            gradient: widget.decoration?.gradient,
+          ),
           child: NavigationToolbar(
             middle: title,
             centerMiddle: widget.centerTitle,
-            trailing: OverflowHandler(
-              overflowBreakpoint: overflowBreakpoint,
-              overflowWidget: ToolbarOverflowButton(
-                isDense: doAllItemsShowLabel,
-                overflowContentBuilder: (context) => ToolbarOverflowMenu(
-                  children: overflowedActions
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                OverflowHandler(
+                  overflowBreakpoint: overflowBreakpoint,
+                  overflowWidget: ToolbarOverflowButton(
+                    isDense: doAllItemsShowLabel,
+                    overflowContentBuilder: (context) => ToolbarOverflowMenu(
+                      children: overflowedActions
+                          .map((action) => action.build(
+                                context,
+                                ToolbarItemDisplayMode.overflowed,
+                              ))
+                          .toList(),
+                    ),
+                  ),
+                  children: inToolbarActions
                       .map(
-                        (action) => action.build(
-                          context,
-                          ToolbarItemDisplayMode.overflowed,
-                        ),
+                        (e) =>
+                            e.build(context, ToolbarItemDisplayMode.inToolbar),
                       )
                       .toList(),
+                  overflowChangedCallback: (hiddenItems) {
+                    setState(() => overflowedActionsCount = hiddenItems.length);
+                  },
                 ),
-              ),
-              children: inToolbarActions
-                  .map(
-                    (e) => e.build(context, ToolbarItemDisplayMode.inToolbar),
-                  )
-                  .toList(),
-              overflowChangedCallback: (hiddenItems) {
-                setState(() => overflowedActionsCount = hiddenItems.length);
-              },
+                if (widget.trailing != null) widget.trailing!,
+              ],
             ),
             middleSpacing: 8,
             leading: SafeArea(

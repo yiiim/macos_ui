@@ -368,13 +368,13 @@ class _SidebarItem extends StatelessWidget {
   }
 
   Map<Type, Action<Intent>> get _actionMap => <Type, Action<Intent>>{
-    ActivateIntent: CallbackAction<ActivateIntent>(
-      onInvoke: (ActivateIntent intent) => _handleActionTap(),
-    ),
-    ButtonActivateIntent: CallbackAction<ButtonActivateIntent>(
-      onInvoke: (ButtonActivateIntent intent) => _handleActionTap(),
-    ),
-  };
+        ActivateIntent: CallbackAction<ActivateIntent>(
+          onInvoke: (ActivateIntent intent) => _handleActionTap(),
+        ),
+        ButtonActivateIntent: CallbackAction<ButtonActivateIntent>(
+          onInvoke: (ButtonActivateIntent intent) => _handleActionTap(),
+        ),
+      };
   bool get hasLeading => item.leading != null;
 
   bool get hasTrailing => item.trailing != null;
@@ -397,7 +397,7 @@ class _SidebarItem extends StatelessWidget {
 
     final double spacing = 10.0 + theme.visualDensity.horizontal;
     final itemSize = _SidebarItemsConfiguration.of(context).itemSize;
-    
+
     TextStyle? labelStyle;
     switch (itemSize) {
       case SidebarItemSize.small:
@@ -444,9 +444,8 @@ class _SidebarItem extends StatelessWidget {
                     padding: EdgeInsets.only(right: spacing),
                     child: MacosIconTheme.merge(
                       data: MacosIconThemeData(
-                        color: selected
-                            ? MacosColors.white
-                            : theme.primaryColor,
+                        color:
+                            selected ? MacosColors.white : theme.primaryColor,
                         size: itemSize.iconSize,
                       ),
                       child: item.leading!,
@@ -575,12 +574,12 @@ class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem>
             onEnter: (e) => {
               setState(() {
                 _isHovering = true;
-              }),
+              })
             },
             onExit: (e) => {
               setState(() {
                 _isHovering = false;
-              }),
+              })
             },
             child: _SidebarItem(
               item: SidebarItem(
@@ -604,20 +603,21 @@ class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem>
                   children: [
                     if (widget.item.trailing != null) widget.item.trailing!,
                     if (_isHovering)
-                      RotationTransition(
-                        turns: _iconTurns,
-                        child: Icon(
-                          CupertinoIcons.chevron_right,
-                          size: 14.0,
-                          color: theme.brightness == Brightness.light
-                              ? MacosColors.black.withValues(alpha: 0.3)
-                              : MacosColors.white.withValues(alpha: 0.3),
-                        ),
-                      ),
+                      widget.item.hovering ??
+                          RotationTransition(
+                            turns: _iconTurns,
+                            child: Icon(
+                              CupertinoIcons.chevron_right,
+                              size: 14.0,
+                              color: theme.brightness == Brightness.light
+                                  ? MacosColors.black.withValues(alpha: 0.3)
+                                  : MacosColors.white.withValues(alpha: 0.3),
+                            ),
+                          ),
                   ],
                 ),
               ),
-              onClick: _handleTap,
+              onClick: widget.item.expandEnabled ? _handleTap : null,
               selected: false,
             ),
           ),
@@ -658,7 +658,7 @@ class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem>
           children: widget.item.disclosureItems!.map((item) {
             return Padding(
               padding: EdgeInsets.only(
-                left: 24.0 + theme.visualDensity.horizontal,
+                left: 8 + theme.visualDensity.horizontal,
               ),
               child: SizedBox(
                 width: double.infinity,
@@ -689,8 +689,8 @@ class _DisclosureSidebarItem extends StatefulWidget {
     required this.item,
     this.selectedItem,
     this.onChanged,
-  }) : assert(item.disclosureItems != null),
-       super(key: key);
+  })  : assert(item.disclosureItems != null),
+        super(key: key);
 
   final SidebarItem item;
 

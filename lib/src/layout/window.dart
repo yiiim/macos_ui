@@ -80,10 +80,10 @@ class MacosWindow extends StatefulWidget {
   final NSVisualEffectViewState sidebarState;
 
   @override
-  State<MacosWindow> createState() => _MacosWindowState();
+  State<MacosWindow> createState() => MacosWindowState();
 }
 
-class _MacosWindowState extends State<MacosWindow> {
+class MacosWindowState extends State<MacosWindow> {
   var _sidebarScrollController = ScrollController();
   var _endSidebarScrollController = ScrollController();
   double _sidebarWidth = 0.0;
@@ -327,8 +327,8 @@ class _MacosWindowState extends State<MacosWindow> {
                           state: sidebarState,
                           child: DecoratedBox(
                             decoration: const BoxDecoration(
-                              color: Color.fromRGBO(0, 0, 0, 1.0),
-                              backgroundBlendMode: BlendMode.clear,
+                              // color: Color.fromRGBO(0, 0, 0, 1.0),
+                              // backgroundBlendMode: BlendMode.clear,
                             ),
                             child: Column(
                               children: [
@@ -619,6 +619,30 @@ class _MacosWindowState extends State<MacosWindow> {
         );
       },
     );
+  }
+
+  void showEndSidebar({bool animated = true}) {
+    if (_showEndSidebar) {
+      return;
+    }
+    setState(() {
+      if (animated) {
+        _sidebarSlideDuration = 300;
+      }
+      _showEndSidebar = true;
+    });
+  }
+
+  void hideEndSidebar({bool animated = true}) {
+    if (!_showEndSidebar) {
+      return;
+    }
+    setState(() {
+      if (animated) {
+        _sidebarSlideDuration = 300;
+      }
+      _showEndSidebar = false;
+    });
   }
 }
 

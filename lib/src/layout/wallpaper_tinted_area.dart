@@ -141,8 +141,8 @@ class _WallpaperTintedAreaTweenAnimationBuilder extends StatelessWidget {
       builder: (context, value, child) {
         return Container(
           decoration: BoxDecoration(
-            color: backgroundColor.withValues(alpha: value),
-            backgroundBlendMode: BlendMode.src,
+            // color: backgroundColor.withValues(alpha: value),
+            // backgroundBlendMode: BlendMode.src,
           ),
           child: child,
         );
