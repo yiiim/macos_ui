@@ -1,3 +1,24 @@
+## [2.2.2]
+### 🛠 Fixed 🛠
+- Fixed setState called after dispose issue in MacosPulldownButton.
+
+## [2.2.1]
+### 🔄 Updated 🔄
+* Wrap toolbar items with `MacosToolbarPassthrough` to prevent window move or resize when interacting with toolbar items.
+
+## [2.2.0+3]
+* Address DCM lints:
+  * Prefer `const BorderRadius.all`
+  * Sort private members
+
+## [2.2.0+2]
+* Formatter updates
+
+## [2.2.0+1]
+* Support Dart 3.9.2
+* Update dependencies
+* Address lints
+
 ## [2.2.0]
 ### ✨ New ✨
 * Add support for Swift package manager.

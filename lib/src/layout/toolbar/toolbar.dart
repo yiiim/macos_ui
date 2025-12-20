@@ -162,20 +162,26 @@ class ToolBar extends StatefulWidget with Diagnosticable {
     properties.add(DiagnosticsProperty<Alignment>('alignment', alignment));
     properties.add(DiagnosticsProperty<Widget>('title', title));
     properties.add(DoubleProperty('titleWidth', titleWidth));
+<<<<<<< HEAD
+    properties.add(
+      DiagnosticsProperty<BoxDecoration>('decoration', decoration),
+    );
+=======
     properties.add(DiagnosticsProperty<BoxDecoration>('decoration', decoration));
+>>>>>>> fork/develop
     properties.add(DiagnosticsProperty<EdgeInsets>('padding', padding));
     properties.add(DiagnosticsProperty<Widget>('leading', leading));
-    properties.add(FlagProperty(
-      'automaticallyImplyLeading',
-      value: automaticallyImplyLeading,
-      ifTrue: 'automatically imply leading',
-    ));
+    properties.add(
+      FlagProperty(
+        'automaticallyImplyLeading',
+        value: automaticallyImplyLeading,
+        ifTrue: 'automatically imply leading',
+      ),
+    );
     properties.add(DiagnosticsProperty<List<ToolbarItem>>('actions', actions));
-    properties.add(FlagProperty(
-      'centerTitle',
-      value: centerTitle,
-      ifTrue: 'center title',
-    ));
+    properties.add(
+      FlagProperty('centerTitle', value: centerTitle, ifTrue: 'center title'),
+    );
     properties.add(DiagnosticsProperty<Color>('dividerColor', dividerColor));
   }
 
@@ -256,11 +262,9 @@ class _ToolBarState extends State<ToolBar> {
     final isMacOS = defaultTargetPlatform == TargetPlatform.macOS;
 
     return MediaQuery(
-      data: MediaQuery.of(context).copyWith(
-        padding: EdgeInsets.only(
-          left: !kIsWeb && isMacOS ? 70 : 0,
-        ),
-      ),
+      data: MediaQuery.of(
+        context,
+      ).copyWith(padding: EdgeInsets.only(left: !kIsWeb && isMacOS ? 70 : 0)),
       child: _WallpaperTintedAreaOrBlurFilter(
         enableWallpaperTintedArea: kIsWeb ? false : !widget.enableBlur,
         isWidgetVisible: widget.allowWallpaperTintingOverrides,
@@ -300,7 +304,12 @@ class _ToolBarState extends State<ToolBar> {
                   ),
                   children: inToolbarActions
                       .map(
+<<<<<<< HEAD
+                        (e) =>
+                            e.build(context, ToolbarItemDisplayMode.inToolbar),
+=======
                         (e) => e.build(context, ToolbarItemDisplayMode.inToolbar),
+>>>>>>> fork/develop
                       )
                       .toList(),
                   overflowChangedCallback: (hiddenItems) {
@@ -389,10 +398,7 @@ class _WallpaperTintedAreaOrBlurFilter extends StatelessWidget {
         child: BackdropFilter(
           filter: widgetOpacity == 1.0
               ? ImageFilter.blur()
-              : ImageFilter.blur(
-                  sigmaX: 5.0,
-                  sigmaY: 5.0,
-                ),
+              : ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
           child: child,
         ),
       ),
