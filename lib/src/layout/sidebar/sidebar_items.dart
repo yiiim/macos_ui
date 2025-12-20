@@ -374,7 +374,7 @@ class _SidebarItem extends StatelessWidget {
         labelStyle = theme.typography.title3;
         break;
     }
-
+    final isDarkModeEnabled = MacosTheme.of(context).brightness.isDark;
     return Semantics(
       label: item.semanticLabel,
       button: true,
@@ -408,7 +408,7 @@ class _SidebarItem extends StatelessWidget {
                     padding: EdgeInsets.only(right: spacing),
                     child: MacosIconTheme.merge(
                       data: MacosIconThemeData(
-                        color: selected ? MacosColors.white : theme.primaryColor,
+                        color: selected ? textLuminance(selectedColor) : null,
                         size: itemSize.iconSize,
                       ),
                       child: item.leading!,
