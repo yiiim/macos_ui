@@ -162,13 +162,7 @@ class ToolBar extends StatefulWidget with Diagnosticable {
     properties.add(DiagnosticsProperty<Alignment>('alignment', alignment));
     properties.add(DiagnosticsProperty<Widget>('title', title));
     properties.add(DoubleProperty('titleWidth', titleWidth));
-<<<<<<< HEAD
-    properties.add(
-      DiagnosticsProperty<BoxDecoration>('decoration', decoration),
-    );
-=======
     properties.add(DiagnosticsProperty<BoxDecoration>('decoration', decoration));
->>>>>>> fork/develop
     properties.add(DiagnosticsProperty<EdgeInsets>('padding', padding));
     properties.add(DiagnosticsProperty<Widget>('leading', leading));
     properties.add(
@@ -304,12 +298,7 @@ class _ToolBarState extends State<ToolBar> {
                   ),
                   children: inToolbarActions
                       .map(
-<<<<<<< HEAD
-                        (e) =>
-                            e.build(context, ToolbarItemDisplayMode.inToolbar),
-=======
                         (e) => e.build(context, ToolbarItemDisplayMode.inToolbar),
->>>>>>> fork/develop
                       )
                       .toList(),
                   overflowChangedCallback: (hiddenItems) {
