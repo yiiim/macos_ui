@@ -162,9 +162,13 @@ class ToolBar extends StatefulWidget with Diagnosticable {
     properties.add(DiagnosticsProperty<Alignment>('alignment', alignment));
     properties.add(DiagnosticsProperty<Widget>('title', title));
     properties.add(DoubleProperty('titleWidth', titleWidth));
+<<<<<<< HEAD
     properties.add(
       DiagnosticsProperty<BoxDecoration>('decoration', decoration),
     );
+=======
+    properties.add(DiagnosticsProperty<BoxDecoration>('decoration', decoration));
+>>>>>>> fork/develop
     properties.add(DiagnosticsProperty<EdgeInsets>('padding', padding));
     properties.add(DiagnosticsProperty<Widget>('leading', leading));
     properties.add(
@@ -191,8 +195,7 @@ class _ToolBarState extends State<ToolBar> {
   @override
   void didUpdateWidget(ToolBar oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.actions != null &&
-        widget.actions!.length != oldWidget.actions!.length) {
+    if (widget.actions != null && widget.actions!.length != oldWidget.actions!.length) {
       overflowedActionsCount = 0;
     }
   }
@@ -244,9 +247,7 @@ class _ToolBarState extends State<ToolBar> {
     bool doAllItemsShowLabel = true;
     if (widget.actions != null && widget.actions!.isNotEmpty) {
       inToolbarActions = widget.actions ?? [];
-      overflowedActions = inToolbarActions
-          .sublist(inToolbarActions.length - overflowedActionsCount)
-          .toList();
+      overflowedActions = inToolbarActions.sublist(inToolbarActions.length - overflowedActionsCount).toList();
       // If all toolbar actions have labels shown below their icons,
       // reduce the overflow button's size as well.
       for (ToolbarItem item in widget.actions!) {
@@ -303,8 +304,12 @@ class _ToolBarState extends State<ToolBar> {
                   ),
                   children: inToolbarActions
                       .map(
+<<<<<<< HEAD
                         (e) =>
                             e.build(context, ToolbarItemDisplayMode.inToolbar),
+=======
+                        (e) => e.build(context, ToolbarItemDisplayMode.inToolbar),
+>>>>>>> fork/develop
                       )
                       .toList(),
                   overflowChangedCallback: (hiddenItems) {
