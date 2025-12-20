@@ -143,13 +143,9 @@ class SidebarItems extends StatelessWidget {
                 child: ListView(
                   controller: scrollController,
                   physics: const ClampingScrollPhysics(),
-<<<<<<< HEAD
                   padding: EdgeInsets.all(
                     10.0 - theme.visualDensity.horizontal,
                   ),
-=======
-                  padding: EdgeInsets.all(10.0 - theme.visualDensity.horizontal),
->>>>>>> fork/develop
                   children: List.generate(items.length, (index) {
                     final item = items[index];
                     if (item.section == true && item.disclosureItems != null) {
@@ -306,24 +302,8 @@ class _SidebarHeaderItem extends StatelessWidget {
                 child: item.trailing!,
               ),
             ],
-<<<<<<< HEAD
           ],
         ),
-=======
-          ),
-        ));
-  }
-
-  DefaultTextStyle _buildLabelWithDefaultTextStyle(TextStyle labelStyle, BuildContext context) {
-    final isDarkModeEnabled = MacosTheme.of(context).brightness.isDark;
-
-    return DefaultTextStyle(
-      style: labelStyle.copyWith(
-        fontWeight: FontWeight.bold,
-        fontSize: (labelStyle.fontSize ?? 14.0) * 0.85,
-        color: isDarkModeEnabled ? MacosColors.white.withValues(alpha: 0.3) : MacosColors.black.withValues(alpha: 0.3),
-        overflow: TextOverflow.ellipsis,
->>>>>>> fork/develop
       ),
     );
   }
@@ -488,33 +468,6 @@ class _SidebarItem extends StatelessWidget {
       ),
     );
   }
-<<<<<<< HEAD
-=======
-
-  DefaultTextStyle _buildLabelWithDefaultTextStyle(TextStyle labelStyle, Color selectedColor, BuildContext context) {
-    if (item.section ?? true) {
-      final isDarkModeEnabled = MacosTheme.of(context).brightness.isDark;
-
-      return DefaultTextStyle(
-        style: labelStyle.copyWith(
-          fontWeight: FontWeight.bold,
-          fontSize: (labelStyle.fontSize ?? 14.0) * 0.85,
-          color: isDarkModeEnabled ? MacosColors.white.withValues(alpha: 0.3) : MacosColors.black.withValues(alpha: 0.3),
-          overflow: TextOverflow.ellipsis,
-        ),
-        child: item.label,
-      );
-    }
-
-    return DefaultTextStyle(
-      style: labelStyle.copyWith(
-        color: selected ? textLuminance(selectedColor) : null,
-        overflow: TextOverflow.ellipsis,
-      ),
-      child: item.label,
-    );
-  }
->>>>>>> fork/develop
 }
 
 class _DisclosureSidebarHeaderItem extends StatefulWidget {
@@ -539,7 +492,6 @@ class _DisclosureSidebarHeaderItem extends StatefulWidget {
   __DisclosureSidebarHeaderState createState() => __DisclosureSidebarHeaderState();
 }
 
-<<<<<<< HEAD
 class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem>
     with SingleTickerProviderStateMixin {
   static final Animatable<double> _easeInTween = CurveTween(
@@ -549,11 +501,6 @@ class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem>
     begin: 0,
     end: 0.25,
   );
-=======
-class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem> with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween = Tween<double>(begin: 0, end: 0.25);
->>>>>>> fork/develop
 
   late AnimationController _controller;
   late Animation<double> _iconTurns;
@@ -616,7 +563,6 @@ class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(
-<<<<<<< HEAD
           width: double.infinity,
           child: MouseRegion(
             onEnter: (e) => {
@@ -664,56 +610,6 @@ class __DisclosureSidebarHeaderState extends State<_DisclosureSidebarHeaderItem>
                           ),
                   ],
                 ),
-=======
-            width: double.infinity,
-            child: MouseRegion(
-              onEnter: (e) => {
-                setState(() {
-                  _isHovering = true;
-                })
-              },
-              onExit: (e) => {
-                setState(() {
-                  _isHovering = false;
-                })
-              },
-              child: _SidebarItem(
-                item: SidebarItem(
-                  section: true,
-                  label: widget.item.label,
-                  leading: (hasLeading)
-                      ? Padding(
-                          padding: const EdgeInsets.all(0),
-                          child: MacosIconTheme.merge(
-                            data: MacosIconThemeData(size: itemSize.iconSize),
-                            child: widget.item.leading!,
-                          ),
-                        )
-                      : null,
-                  unselectedColor: MacosColors.transparent,
-                  focusNode: widget.item.focusNode,
-                  semanticLabel: widget.item.semanticLabel,
-                  shape: widget.item.shape,
-                  trailing: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      if (widget.item.trailing != null) widget.item.trailing!,
-                      if (_isHovering)
-                        widget.item.hovering ??
-                            RotationTransition(
-                              turns: _iconTurns,
-                              child: Icon(
-                                CupertinoIcons.chevron_right,
-                                size: 14.0,
-                                color: theme.brightness == Brightness.light ? MacosColors.black.withValues(alpha: 0.3) : MacosColors.white.withValues(alpha: 0.3),
-                              ),
-                            ),
-                    ],
-                  ),
-                ),
-                onClick: widget.item.expandEnabled ? _handleTap : null,
-                selected: false,
->>>>>>> fork/develop
               ),
               onClick: widget.item.expandEnabled ? _handleTap : null,
               selected: false,
@@ -803,7 +699,6 @@ class _DisclosureSidebarItem extends StatefulWidget {
   __DisclosureSidebarItemState createState() => __DisclosureSidebarItemState();
 }
 
-<<<<<<< HEAD
 class __DisclosureSidebarItemState extends State<_DisclosureSidebarItem>
     with SingleTickerProviderStateMixin {
   static final Animatable<double> _easeInTween = CurveTween(
@@ -813,11 +708,6 @@ class __DisclosureSidebarItemState extends State<_DisclosureSidebarItem>
     begin: 0.0,
     end: 0.25,
   );
-=======
-class __DisclosureSidebarItemState extends State<_DisclosureSidebarItem> with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.25);
->>>>>>> fork/develop
 
   late AnimationController _controller;
   late Animation<double> _iconTurns;
