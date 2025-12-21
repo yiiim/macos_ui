@@ -203,7 +203,7 @@ class _CheckboxStack extends StatelessWidget {
           ? MacosColors.black
           : MacosColors.white;
     }
-
+    return MacosColors.black;
     if (theme.isMainWindow == false) {
       return MacosColors.black;
     }

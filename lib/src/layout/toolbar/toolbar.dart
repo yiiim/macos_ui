@@ -269,6 +269,7 @@ class _ToolBarState extends State<ToolBar> {
           padding: widget.padding,
           decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: dividerColor)),
+            color:theme.canvasColor,
           ).copyWith(
             color: widget.decoration?.color,
             image: widget.decoration?.image,
